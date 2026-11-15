@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&display=swap");
+/* 테마 paper(문서형): 종이색 바탕, 글 전체가 명조체, 그림자 없이 선으로 나누는 차분한 읽기 화면.
+   html[data-theme="paper"]일 때만 걸린다. 코드만 고정폭 글꼴이다(lecture.css, course.css의 code 규칙). */
+html[data-theme="paper"] {
+  --serif: "Noto Serif KR", "Nanum Myeongjo", "Batang", serif;
+  --text: #22201c;
+  --text-2: #55514a;
+  --muted: #8f897f;
+  --line: #e4ded1;
+  --line-soft: #f0ebe1;
+  --bg: #fbfaf6;
+  --bg-soft: #f5f2ea;
+  --accent: #0f6e5f;
+  --accent-soft: #e4f1ed;
+  --shadow: none;
+  --shadow-lift: none;
+}
+
+/* 글 전체는 명조체. 단추와 입력란은 body를 따르고(font: inherit), kbd만 글꼴을 따로 정해 함께 바꾼다 */
+[data-theme="paper"] :is(body, kbd) { font-family: var(--serif); }
+/* 제목은 명조체 */
+[data-theme="paper"] :is(.hero-title, .page-title, .post-title, .section-title, .year-title, .unit-title, .brand-name, .article h1, .article .sx-h) { font-family: var(--serif); letter-spacing: -.01em; }
+[data-theme="paper"] .hero-title { font-size: 42px; font-weight: 900; }
+[data-theme="paper"] .page-title, [data-theme="paper"] .post-title { font-weight: 700; }
+/* 절도 장 제목처럼 명조체(사용자 결정, 2026-10-19) */
+[data-theme="paper"] .article .sx-body > :is(h3, h4) { font-family: var(--serif); letter-spacing: -.01em; }
+[data-theme="paper"] .article .hang > h4 { font-family: var(--serif); letter-spacing: -.01em; }
+
+/* 사이드바: 종이색, 지금 위치는 왼쪽 선 */
+[data-theme="paper"] .side-search, [data-theme="paper"] kbd { background: var(--bg); }
+[data-theme="paper"] .brand-avatar { background: none; box-shadow: none; border-radius: 0; }
+[data-theme="paper"] :is(.nav-link, .tree-link, .sub-link, .unit-btn, .lec-link, .tree-toggle):hover { background: var(--line-soft); }
+/* 좌측 목차 줄의 모서리와 지금 위치 표시는 세 테마 공통 값이다(site.css, course.css, 사이트 설계 UR03) */
+/* 소주제 칸(왼쪽 목차와 대주제 화면 소주제 제목)은 강의 글 장 번호처럼 연한 강조색을 채운다 */
+[data-theme="paper"] .unit-code { border: 0; border-radius: 4px; background: var(--accent-soft); color: var(--accent); }
+
+/* 첫 화면: 공책 표지. 가로 공책 줄, 왼쪽 초록 여백 선, 연한 테두리. 진한 아래 선은 두지 않는다('과정' 제목이 이 선과 카드 위쪽 선 사이에 끼어 두 겹으로 보인다) */
+[data-theme="paper"] .hero {
+  margin-top: 24px; padding: 44px 40px 36px 72px;
+  border: 1px solid var(--line); border-radius: 4px;
+  background-color: #fffdf7;
+  background-image: linear-gradient(90deg, transparent 47px, rgba(15, 110, 95, .5) 47px, rgba(15, 110, 95, .5) 49px, transparent 49px),
+                    repeating-linear-gradient(180deg, transparent 0, transparent 31px, #ece5d6 31px, #ece5d6 32px);
+}
+@media (max-width: 760px) {
+  [data-theme="paper"] .hero { padding: 28px 20px 24px 52px; background-image: linear-gradient(90deg, transparent 33px, rgba(15, 110, 95, .5) 33px, rgba(15, 110, 95, .5) 35px, transparent 35px), repeating-linear-gradient(180deg, transparent 0, transparent 31px, #ece5d6 31px, #ece5d6 32px); }
+}
+[data-theme="paper"] .hero::before, [data-theme="paper"] .hero::after { display: none; }
+[data-theme="paper"] .kicker { color: var(--accent); letter-spacing: .2em; }
+[data-theme="paper"] .hero-avatar { width: 96px; height: 96px; border-radius: 0; box-shadow: none; transform: none; }
+[data-theme="paper"] .stats div { border-left-color: var(--line); }
+
+/* 카드: 테두리 상자 대신 위쪽 굵은 선과 아래쪽 가는 선 */
+[data-theme="paper"] .cat-cards { gap: 0 28px; grid-auto-rows: 1fr; }  /* 위쪽 선으로만 나누므로 줄마다 높이가 다르면 간격이 들쭉날쭉해 보인다. 모든 줄을 가장 높은 카드에 맞춘다 */
+[data-theme="paper"] .cat-card { padding: 18px 4px 20px; border: 0; border-top: 2px solid var(--accent); border-radius: 0; background: transparent; }
+[data-theme="paper"] .cat-card::before { display: none; }
+[data-theme="paper"] .cat-card:hover { transform: none; background: var(--bg-soft); }
+[data-theme="paper"] .cat-card.has-icon { padding-left: 4px; }
+[data-theme="paper"] .lec-cards { gap: 0; border-top: 1px solid var(--line); }
+/* 강의 카드가 선으로 나눈 줄이 되므로, 소주제 사이는 강의 글 장 위 여백(52px)만큼 띄워 줄 사이(약 32px)와 가른다 */
+[data-theme="paper"] .units { gap: 52px; }
+[data-theme="paper"] .lec-card { padding: 16px 6px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; }
+[data-theme="paper"] .lec-card:hover { transform: none; background: var(--bg-soft); }
+[data-theme="paper"] .lec-card-code { color: var(--accent); font-family: var(--serif); }
+[data-theme="paper"] :is(.post-nav-link, .card-link, .chip-link, .btn-ghost, .fold-all) { border-radius: 6px; background: transparent; }
+[data-theme="paper"] :is(.post-nav-link, .card-link):hover { background: var(--bg-soft); }
+[data-theme="paper"] .btn { border-radius: 6px; }
+[data-theme="paper"] .topbar { background: rgba(251, 250, 246, .94); }
+[data-theme="paper"] .search-box { background: var(--bg); border-radius: 8px; }
+[data-theme="paper"] .to-top { background: var(--bg); }
+[data-theme="paper"] .meta-badge.nature { background: var(--accent-soft); color: var(--accent); }
+[data-theme="paper"] .meta-badge.time { background: var(--line-soft); color: var(--text-2); }
+
+/* 강의 본문: 번호를 초록으로. 상자, 링크, 표, 코드의 구조는 lecture.css에 있고 이 테마는 모서리만 6px로 둔다(사이트 설계 "세 테마 본문의 같은 구조") */
+[data-theme="paper"] .article { --co-radius: 6px; }
+[data-theme="paper"] .article :not(pre) > code { background: var(--line-soft); }
+[data-theme="paper"] .article .sx-num { color: var(--accent); }
+[data-theme="paper"] .article.style-timeline .sx-body { background: var(--bg-soft); }
+[data-theme="paper"] .article.style-cards { padding: 0; background: transparent; }
+/* 장 경계: 진한 2px 선과 넓은 위아래 여백. 잇는 줄 위는 선 대신 가운데 점을 두어, 점은 장 안의 쉼, 진한 선은 장의 끝으로 읽히게 한다.
+   카드가 없는 문서 테마에서 장 경계와 잇는 줄 위 선이 같은 옅은 1px 선이라 잇는 줄이 다음 장에 붙어 보였다(사용자 결정, 2026-10-28, 작업 261028-20) */
+[data-theme="paper"] .article.style-cards .sx-sec { margin: 0; padding: 64px 0 56px; border-top: 2px solid #bdb4a4; border-radius: 0; background: transparent; box-shadow: none; }
+[data-theme="paper"] .article.style-cards .sx-sec:first-child { border-top: 0; padding-top: 0; }
+[data-theme="paper"] .article.style-cards .sx-intro { padding: 0 0 40px; border-radius: 0; background: none; box-shadow: none; }
+[data-theme="paper"] .article.style-cards .sx-intro + .sx-sec { border-top: 2px solid #bdb4a4; padding-top: 64px; }
+[data-theme="paper"] .article.style-cards .sx-closed:hover { transform: none; box-shadow: none; background: var(--bg-soft); }
+[data-theme="paper"] .article.style-cards .sx-group { background: var(--bg-soft); border-color: var(--line); border-radius: 6px; }
+/* 번호 칸: 헥사처럼 연한 초록 바탕에 짙은 초록 숫자. 모서리는 문서 테마의 다른 칸처럼 4px. 접힌 장은 바탕과 숫자를 흐리게(사용자 결정, 2026-10-19) */
+[data-theme="paper"] .article.style-cards .sx-num { background: var(--accent-soft); color: var(--accent) !important; border-radius: 4px; }
+[data-theme="paper"] .article.style-cards .sx-closed .sx-num { background: var(--line-soft); color: var(--muted) !important; }
+[data-theme="paper"] .article.sx .sx-fold { color: var(--accent); }
+[data-theme="paper"] .article.sx .sx-fold:hover { background: var(--accent-soft); }
+[data-theme="paper"] .article.sx .sx-frame { border-radius: 4px; background: repeating-linear-gradient(135deg, #f1ede4 0 14px, #ebe6da 14px 28px); }
+[data-theme="paper"] .article.style-timeline .sx-num { background: var(--accent); }
+[data-theme="paper"] .article.style-timeline .sx-closed .sx-num { background: var(--bg); color: var(--accent) !important; box-shadow: inset 0 0 0 2px var(--accent); }
+[data-theme="paper"] .article.style-timeline .sx-sec::before { background: var(--line); }
+
+/* 모서리: 문서 테마는 각지게 둔다. 작은 칸(단계 번호 칸, 학습 성격 배지)은 4px,
+   상자, 코드 블록, 캡처 그림, 영상, 버튼(왼쪽 목차 접기·펴기, 코드 복사)은 6px(사용자 결정, 2026-10-19) */
+[data-theme="paper"] .meta-badge { border-radius: 4px; }
+[data-theme="paper"] :is(.article blockquote, .article pre, .article.sx .sx-img img, .article .video-embed iframe, .side-toggle, .copy-btn) { border-radius: 6px; }
+/* 명조체 글자가 고딕보다 높게 그려져 같은 줄 간격(1.75)이면 줄 사이가 빽빽해 보인다. 본문과 목록의 줄 간격을 2.0으로 넓혀 줄 사이 빈 곳을 헥사와 비슷하게 둔다(사용자 결정, 2026-10-22) */
+[data-theme="paper"] .article, [data-theme="paper"] .article li { line-height: 2; }
